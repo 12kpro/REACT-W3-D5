@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToFavouritesAction, removeFromFavouritesAction } from "../redux/action";
+import { addToFavouritesAction, isPlayAction, removeFromFavouritesAction } from "../redux/action";
 
 const Card = ({ track }) => {
   const dispatch = useDispatch();
   const favourites = useSelector((state) => state.favourites.content);
+  const isplay = useSelector((state) => state.isPlay);
   const isInFavourites = favourites.includes(track.id);
   return (
     <div className="col text-center" id={track.id}>
@@ -31,10 +32,10 @@ const Card = ({ track }) => {
         <button
           type="button"
           className={`btn btn-lg position-absolute top-50 start-50 translate-middle ${
-            isInFavourites ? "text-warning" : "text-secondary"
+            isplay && isplay.id === track.id ? "text-success" : "text-white"
           }`}
           onClick={() => {
-            //isInFavourites ? dispatch(removeFromFavouritesAction(track.id)) : dispatch(addToFavouritesAction(track.id));
+            dispatch(isPlayAction(track));
           }}
         >
           <svg
@@ -42,7 +43,7 @@ const Card = ({ track }) => {
             width="16"
             height="16"
             fill="currentColor"
-            class="bi bi-play-fill"
+            className="bi bi-play-fill"
             viewBox="0 0 16 16"
           >
             <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z" />

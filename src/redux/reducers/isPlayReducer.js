@@ -1,23 +1,9 @@
-import { ADD_TO_ISPLAY, REMOVE_FROM_ISPLAY } from "../action";
+import { IS_PLAY } from "../action";
 
-const initialState = {
-  content: []
-};
-
-const isPlayReducer = (state = initialState, action) => {
+const isPlayReducer = (state = null, action) => {
   switch (action.type) {
-    case ADD_TO_ISPLAY:
-      return {
-        ...state,
-        content: [...state.content, action.payload]
-      };
-
-    case REMOVE_FROM_ISPLAY:
-      return {
-        ...state,
-        content: state.content.filter((track, i) => track !== action.payload)
-      };
-
+    case IS_PLAY:
+      return action.payload;
     default:
       return state;
   }

@@ -1,8 +1,6 @@
 import { ADD_MAIN_SEARCH } from "../action";
 
-const initialState = null;
-
-const mainSearchReducer = (state = initialState, action) => {
+const mainSearchReducer = (state = null, action) => {
   switch (action.type) {
     case ADD_MAIN_SEARCH:
       return {

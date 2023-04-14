@@ -4,14 +4,13 @@ const BASE_URL_SEARCH = "https://striveschool-api.herokuapp.com/api/deezer/searc
 export const ADD_TO_FAVOURITES = "ADD_TO_FAVOURITES";
 export const REMOVE_FROM_FAVOURITES = "REMOVE_FROM_FAVOURITES";
 
-export const ADD_TO_ISPLAY = "ADD_TO_ISPLAY";
-export const REMOVE_FROM_ISPLAY = "REMOVE_FROM_ISPLAY";
-
+export const IS_PLAY = "IS_PLAY";
 export const ADD_MAIN_SEARCH = "ADD_MAIN_SEARCH";
 export const ADD_USER_SEARCH = "ADD_USER_SEARCH";
 
 export const addToFavouritesAction = (track) => ({ type: ADD_TO_FAVOURITES, payload: track });
 export const removeFromFavouritesAction = (track) => ({ type: REMOVE_FROM_FAVOURITES, payload: track });
+export const isPlayAction = (track) => ({ type: IS_PLAY, payload: track });
 
 export const addUserSearchAction = (query) => {
   return async (dispatch) => {
