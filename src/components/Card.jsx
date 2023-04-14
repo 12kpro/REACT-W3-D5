@@ -54,7 +54,7 @@ const Card = ({ track }) => {
         <Link to={`/album/${track.album.id}`}>
           Album: {track.album.title.length < 16 ? `${track.album.title}` : `${track.album.title.substring(0, 16)}...`}
         </Link>
-        <Link to={`/album/${track.artist.id}`}>Artist: {track.artist.name}</Link>
+        <Link to={`/artist/${track.artist.id}`}>Artist: {track.artist.name}</Link>
       </p>
     </div>
   );

@@ -1,8 +1,3 @@
-//import "bootstrap/dist/css/bootstrap.min.css";
-//import "./App.css";
-//import MainSearch from "./components/MainSearch";
-//import CompanySearchResults from "./components/CompanySearchResults";
-//import FavouritesCompanies from "./components/FavouritesCompanies";
 import "./scss/style.scss";
 import "bootstrap/dist/js/bootstrap";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -26,7 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/album/:id" element={<AlbumMain />} />
-              <Route path="/artist:id" element={<ArtistMain />} />
+              <Route path="/artist/:id" element={<ArtistMain />} />
             </Routes>
           </div>
         </div>

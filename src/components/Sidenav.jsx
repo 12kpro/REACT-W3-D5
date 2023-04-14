@@ -48,7 +48,7 @@ const SideNav = () => {
                   <i className="fas fa-book-open fa-lg"></i>&nbsp; Your Library
                 </Link>
               </li>
-              {!["/album", "/artist"].includes(location.pathname) && (
+              {!location.pathname.includes("album") && !location.pathname.includes("artist") && (
                 <li>
                   <div className="input-group mt-3">
                     <input
