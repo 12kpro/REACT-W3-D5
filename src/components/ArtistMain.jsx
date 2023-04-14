@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Card from "./Card";
 
 const ArtistMain = () => {
   const ARTIST_URL = "https://striveschool-api.herokuapp.com/api/deezer/artist/";
+  const BASE_URL_SEARCH = "https://striveschool-api.herokuapp.com/api/deezer/search?q=";
+
   const params = useParams();
 
   const [artistInfo, setArtistInfo] = useState(null);
+  const [artistTrack, setArtistTrack] = useState(null);
 
   useEffect(() => {
     const fetchData = async (url) => {
@@ -22,6 +26,23 @@ const ArtistMain = () => {
 
     fetchData(`${ARTIST_URL}${params.id}`);
   }, []);
+
+  useEffect(() => {
+    const fetchData = async (url) => {
+      try {
+        const response = await fetch(url);
+        if (response.ok) {
+          const { data } = await response.json();
+          setArtistTrack(data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (artistInfo) {
+      fetchData(`${BASE_URL_SEARCH}${artistInfo.name}`);
+    }
+  }, [artistInfo]);
   return (
     <>
       {artistInfo && (
@@ -46,7 +67,11 @@ const ArtistMain = () => {
                 <h2 className="text-white font-weight-bold">Tracks</h2>
               </div>
               <div className="pt-5 mb-5">
-                <div className="row" id="apiLoaded"></div>
+                <div className="row row-cols-4" id="apiLoaded">
+                  {artistTrack.map((track) => (
+                    <Card key={track.id} track={track} />
+                  ))}
+                </div>
               </div>
             </div>
           </div>
