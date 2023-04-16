@@ -7,8 +7,23 @@ import AlbumMain from "./components/AlbumMain";
 import ArtistMain from "./components/ArtistMain";
 import MainLink from "./components/MainLink";
 import Home from "./components/Home";
+import PlayListMain from "./components/PlayListMain";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { addFavouritesIdAction, addMainSearchAction, addPlayList } from "./redux/action";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const favUuid = uuidv4();
+    dispatch(addFavouritesIdAction(favUuid));
+    dispatch(addPlayList("favourites", favUuid));
+    dispatch(addMainSearchAction("pop"));
+    dispatch(addMainSearchAction("rock"));
+    dispatch(addMainSearchAction("hiphop"));
+  }, []);
   return (
     <BrowserRouter>
       <div className="container-fluid">
@@ -22,6 +37,7 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path="/album/:id" element={<AlbumMain />} />
               <Route path="/artist/:id" element={<ArtistMain />} />
+              <Route path="/playlist" element={<PlayListMain />} />
             </Routes>
           </div>
         </div>

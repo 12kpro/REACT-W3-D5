@@ -1,15 +1,17 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
-import favouritesReducer from "../reducers/favouritesReducer";
 import mainSearchReducer from "../reducers/mainSearchReducer";
 import userSearchReducer from "../reducers/userSearchReducer";
 import isPlayReducer from "../reducers/isPlayReducer";
+import playlistReducer from "../reducers/playlistReducer";
+import favouritesIdReducer from "../reducers/favouritesIdReducer";
 
 const rootReducer = combineReducers({
-  favourites: favouritesReducer,
   userSearchResults: userSearchReducer,
   mainSearchResults: mainSearchReducer,
-  isPlay: isPlayReducer
+  playLists: playlistReducer,
+  isPlay: isPlayReducer,
+  favUuid: favouritesIdReducer
 });
 
 const store = configureStore({

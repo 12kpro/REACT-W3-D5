@@ -1,27 +1,32 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToFavouritesAction, isPlayAction, removeFromFavouritesAction } from "../redux/action";
+import { addToPlayListAction, isPlayAction, removeFromPlayListAction } from "../redux/action";
+import AddToPlayListBtn from "./AddToPlayListBtn";
 
 const Card = ({ track }) => {
   const dispatch = useDispatch();
-  const favourites = useSelector((state) => state.favourites.content);
+  const playLists = useSelector((state) => state.playLists);
   const isplay = useSelector((state) => state.isPlay);
-  const isInFavourites = favourites.includes(track.id);
+  const favUuid = useSelector((state) => state.favUuid);
+  const favourites = playLists.find((pl) => pl.id === favUuid).trackList;
+  const isInFavourites = favourites.find((favTrack) => favTrack.id === track.id);
   return (
     <div className="col text-center" id={track.id}>
-      <div className="position-relative">
+      <div className="card-img position-relative">
         <img className="img-fluid" src={track.album.cover_medium} alt="1" onClick={() => {}} />
         <button
           type="button"
-          className={`btn position-absolute top-0 start-0 ${isInFavourites ? "text-warning" : ""}`}
+          className={`btn btn-favourites position-absolute top-0 start-0 ${isInFavourites ? "text-warning" : ""}`}
           onClick={() => {
-            isInFavourites ? dispatch(removeFromFavouritesAction(track.id)) : dispatch(addToFavouritesAction(track.id));
+            isInFavourites
+              ? dispatch(removeFromPlayListAction(track, favUuid))
+              : dispatch(addToPlayListAction(track, favUuid));
           }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="24"
+            height="24"
             fill="currentColor"
             className="bi bi-star-fill lh-1"
             viewBox="0 0 16 16"
@@ -31,8 +36,8 @@ const Card = ({ track }) => {
         </button>
         <button
           type="button"
-          className={`btn btn-lg position-absolute top-50 start-50 translate-middle ${
-            isplay && isplay.id === track.id ? "text-success" : "text-white"
+          className={`btn btn-play position-absolute top-50 start-50 translate-middle ${
+            isplay && isplay.id === track.id ? "text-success visible" : "text-secondary"
           }`}
           onClick={() => {
             dispatch(isPlayAction(track));
@@ -40,8 +45,8 @@ const Card = ({ track }) => {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
+            width="64"
+            height="64"
             fill="currentColor"
             className="bi bi-play-fill"
             viewBox="0 0 16 16"
@@ -50,8 +55,9 @@ const Card = ({ track }) => {
           </svg>
         </button>
       </div>
+      <AddToPlayListBtn track={track} />
       <p>
-        <Link to={`/album/${track.album.id}`}>
+        <Link className="d-block" to={`/album/${track.album.id}`}>
           Album: {track.album.title.length < 16 ? `${track.album.title}` : `${track.album.title.substring(0, 16)}...`}
         </Link>
         <Link to={`/artist/${track.artist.id}`}>Artist: {track.artist.name}</Link>

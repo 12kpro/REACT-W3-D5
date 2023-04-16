@@ -9,7 +9,7 @@ const ArtistMain = () => {
   const params = useParams();
 
   const [artistInfo, setArtistInfo] = useState(null);
-  const [artistTrack, setArtistTrack] = useState(null);
+  const [artistTrack, setArtistTrack] = useState([]);
 
   useEffect(() => {
     const fetchData = async (url) => {

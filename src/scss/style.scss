@@ -224,5 +224,19 @@ ul {
 }
 
 .mainPage img {
-  width: 200px;
+  //width: 200px;
+}
+
+.card-img {
+  &:hover {
+    .btn-play {
+      visibility: visible;
+    }
+  }
+  .btn-play {
+    visibility: hidden;
+  }
+  .btn-favourites:hover {
+    color: $yellow;
+  }
 }

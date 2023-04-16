@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { addToFavouritesAction, isPlayAction, removeFromFavouritesAction } from "../redux/action";
+import { addToPlayListAction, isPlayAction, removeFromPlayListAction } from "../redux/action";
 
 const TrackHover = ({ track }) => {
   const dispatch = useDispatch();
-  const favourites = useSelector((state) => state.favourites.content);
   const isplay = useSelector((state) => state.isPlay);
-  const isInFavourites = favourites.includes(track.id);
+  const favUuid = useSelector((state) => state.favUuid);
+  const playLists = useSelector((state) => state.playLists);
+  const favourites = playLists.find((pl) => pl.id === favUuid).trackList;
+  const isInFavourites = favourites.find((favTrack) => favTrack.id === track.id);
   return (
     <div>
       <div className="py-3 d-flex justify-content-between align-items-center  trackHover text-white">
@@ -35,7 +37,9 @@ const TrackHover = ({ track }) => {
           type="button"
           className={`btn ${isInFavourites ? "text-warning" : "text-white"}`}
           onClick={() => {
-            isInFavourites ? dispatch(removeFromFavouritesAction(track.id)) : dispatch(addToFavouritesAction(track.id));
+            isInFavourites
+              ? dispatch(removeFromPlayListAction(track, favUuid))
+              : dispatch(addToPlayListAction(track, favUuid));
           }}
         >
           <svg

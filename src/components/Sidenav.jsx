@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo/Spotify_Logo.png";
 import { useDispatch } from "react-redux";
-import { addUserSearchAction } from "../redux/action";
+import { addPlayList, addUserSearchAction } from "../redux/action";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const SideNav = () => {
   const dispatch = useDispatch();
   const [query, setQuery] = useState("");
+  const [playListName, setPlayListName] = useState("");
   const location = useLocation();
 
-  console.log(location);
   const search = (e) => {
     dispatch(addUserSearchAction(query));
   };
@@ -18,6 +18,12 @@ const SideNav = () => {
     setQuery(e.target.value);
   };
 
+  const addNewPlaylist = (e) => {
+    dispatch(addPlayList(playListName));
+  };
+  const handlePlayListName = (e) => {
+    setPlayListName(e.target.value);
+  };
   return (
     <nav className="navbar navbar-expand-md navbar-white bg-navbar fixed-left justify-content-between" id="sidebar">
       <div className="nav-container">
@@ -44,7 +50,7 @@ const SideNav = () => {
                 </Link>
               </li>
               <li>
-                <Link className="nav-item nav-link" to="/">
+                <Link className="nav-item nav-link" to="/playlist">
                   <i className="fas fa-book-open fa-lg"></i>&nbsp; Your Library
                 </Link>
               </li>
@@ -68,6 +74,29 @@ const SideNav = () => {
                   </div>
                 </li>
               )}
+              <li>
+                <div className="input-group mt-3">
+                  <input
+                    type="text"
+                    className="form-control mb-2"
+                    id="newPlaylist"
+                    placeholder="Playlist Name"
+                    aria-label="Playlist Name"
+                    aria-describedby="basic-addon2"
+                    onChange={handlePlayListName}
+                  />
+                  <div className="input-group-append" style={{ marginBottom: "4%" }}>
+                    <button
+                      className="btn btn-outline-secondary"
+                      type="button"
+                      id="button-addon1"
+                      onClick={addNewPlaylist}
+                    >
+                      ADD
+                    </button>
+                  </div>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

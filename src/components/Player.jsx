@@ -17,7 +17,10 @@ const Player = () => {
                 {isplay && (
                   <>
                     <img src={isplay.album.cover_small} alt="" />
-                    <p className="ps-2 text-truncate text-white">{isplay.title}</p>
+                    <div>
+                      <p className="m-0 ps-2 text-truncate text-white">{isplay.title}</p>
+                      <small className="ps-2 text-truncate text-white">{isplay.artist.name}</small>
+                    </div>
                   </>
                 )}
               </div>
